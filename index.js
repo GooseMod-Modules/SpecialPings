@@ -5,7 +5,7 @@ import { getOwnerInstance, getNodeInternals } from '@goosemod/reactUtils';
 const toPing = [];
 
 const audio = new Audio();
-audio.src = 'https://cdn.discordapp.com/attachments/947256914314678292/958057735155515412/honk.mp3';
+audio.src = 'https://cdn.discordapp.com/attachments/958047577922740345/958118222341767248/Final_Fantasy_VII_Sound_Effects_-_Save_and_Load.mp3'; // Default
 
 
 const createHook = (e) => {
