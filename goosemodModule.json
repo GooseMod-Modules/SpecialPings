@@ -1,0 +1,12 @@
+{
+  "main": "index.js",
+
+  "name": "Special Pings",
+  "description": "Plays custom sound on certain role pings in certain channels",
+
+  "tags": [],
+
+  "authors": ["506482395269169153"],
+
+  "version": "1.0.0"
+}
