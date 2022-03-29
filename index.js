@@ -9,7 +9,7 @@ audio.src = 'https://cdn.discordapp.com/attachments/958047577922740345/958118222
 
 
 const createHook = (e) => {
-  if (!(toPing.find((x) => x[0] === e.channelId && (e.message.content.includes(x[1] + '>') || x[1] === '@everyone' && e.message.mentionEveryone)))) return;
+  if (!(toPing.find((x) => x[0] === e.channelId && (e.message.content.includes(x[1] + '>') || x[1] === '@everyone' && e.message.mention_everyone)))) return;
   audio.play();
 };
 
@@ -33,7 +33,8 @@ goosemodHandlers: {
 
         const channelId = info.channel.id;
         const guildId = info.channel.guild_id;
-        const mentionedRoles = info.message.mentionRoles;
+        // const mentionedRoles = info.message.mentionRoles;
+        const mentionedRoles = [...'<@&844641221964070963>'.matchAll(/<@&([0-9]{17,18})>/g)].map((x) => x[1]);
 
         const guildRoles = getGuild(guildId).roles;
 
