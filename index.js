@@ -9,7 +9,7 @@ audio.src = 'https://cdn.discordapp.com/attachments/958047577922740345/958118222
 
 
 const createHook = (e) => {
-  if (!(toPing.find((x) => x[0] === e.channelId && e.message.content.includes(x[1] + '>')))) return;
+  if (!(toPing.find((x) => x[0] === e.channelId && (e.message.content.includes(x[1] + '>') || x[1] === '@everyone' && e.message.mentionEveryone)))) return;
   audio.play();
 };
 
@@ -37,21 +37,31 @@ goosemodHandlers: {
 
         const guildRoles = getGuild(guildId).roles;
 
-        console.log('WOW', guildId, guildRoles, mentionedRoles, guildRoles[mentionedRoles[0]].name);
+        const items = mentionedRoles.map((x) => ({
+          label: guildRoles[x].name,
+          checked: (toPing.find((y) => y[0] === channelId && y[1] === x) && true) || false,
 
-        return [
-          ...mentionedRoles.map((x) => ({
-            label: guildRoles[x].name,
-            checked: (toPing.find((y) => y[0] === channelId && y[1] === x) && true) || false,
+          action: () => {
+            const cur = toPing.find((y) => y[0] === channelId && y[1] === x);
 
-            action: () => {
-              const cur = toPing.find((y) => y[0] === channelId && y[1] === x);
+            if (cur) toPing.splice(toPing.indexOf(cur), 1);
+              else toPing.push([ channelId, x ]);
+          }
+        }));
 
-              if (cur) toPing.splice(toPing.indexOf(cur), 1);
-                else toPing.push([ channelId, x ]);
-            }
-          }))
-        ];
+        if (info.message.mentionEveryone) items.push({
+          label: '@everyone',
+          checked: (toPing.find((y) => y[0] === channelId && y[1] === '@everyone') && true) || false,
+          
+          action: () => {
+            const cur = toPing.find((y) => y[0] === channelId && y[1] === '@everyone');
+
+            if (cur) toPing.splice(toPing.indexOf(cur), 1);
+              else toPing.push([ channelId, '@everyone' ]);
+          }
+        });
+
+        return items;
       }
     });
   },
