@@ -34,7 +34,7 @@ goosemodHandlers: {
         const channelId = info.channel.id;
         const guildId = info.channel.guild_id;
         // const mentionedRoles = info.message.mentionRoles;
-        const mentionedRoles = [...info.message.content.matchAll(/<@&([0-9]{17,18})>/g)].map((x) => x[1]);
+        const mentionedRoles = [...new Set([...info.message.content.matchAll(/<@&([0-9]{17,18})>/g)].map((x) => x[1]))];
 
         const guildRoles = getGuild(guildId).roles;
 
