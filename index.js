@@ -2,7 +2,7 @@ import Webpack from '@goosemod/webpack';
 import Patcher from '@goosemod/patcher';
 import { getOwnerInstance, getNodeInternals } from '@goosemod/reactUtils';
 
-const toPing = [];
+let toPing = [];
 
 const audio = new Audio();
 audio.src = 'https://cdn.discordapp.com/attachments/958047577922740345/958118222341767248/Final_Fantasy_VII_Sound_Effects_-_Save_and_Load.mp3'; // Default
